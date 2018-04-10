@@ -36,7 +36,7 @@ class Dashboard extends Component {
                 {this.props.equipamentos.length === 0 && (
                   <p className="alert alert-info">
                     {" "}
-                    Nenhum equipamento cadastrada{" "}
+                    Nenhum equipamento cadastrado{" "}
                   </p>
                 )}
                 <ReactCSSTransitionGroup

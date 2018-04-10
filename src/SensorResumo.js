@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 class SensorResumo extends Component {
-
   getMaxValue(arr) {
     if (arr.length > 0) {
       return Math.max(...arr.map(o => o.y));
@@ -18,7 +17,11 @@ class SensorResumo extends Component {
           <div className="card-body">
             <h5 className="card-title">{sensor.nome}</h5>
             <div className="input-group-append">
-              <h4 className="card-text">{sensor.registros[0].y}</h4>
+              <h4 className="card-text">
+                {sensor.registros[0] && sensor.registros[0].y
+                  ? sensor.registros[0].y
+                  : 0}
+              </h4>
             </div>
           </div>
           <div className="card-footer">

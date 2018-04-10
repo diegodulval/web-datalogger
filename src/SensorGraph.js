@@ -11,17 +11,16 @@ import {
 } from "recharts";
 
 class SensorGraph extends Component {
-
   render() {
     const { sensor } = this.props;
     return (
       <div className="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
         <div className="card" style={{ marginTop: "10px" }}>
           <div className="card-body">
-          <h5 className="card-title">{sensor.nome}</h5>
+            <h5 className="card-title">{sensor.nome}</h5>
             <ResponsiveContainer width="100%" height={250}>
               <LineChart
-                data={sensor.registros}
+                data={sensor.registros.reverse()}
                 margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
               >
                 <XAxis dataKey="x" />

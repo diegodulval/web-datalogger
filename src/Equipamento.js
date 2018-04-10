@@ -8,7 +8,7 @@ class Equipamento extends Component {
     super(props);
     this.state = {
       id: null,
-      editingCategoria: ""
+      editingOutput: ""
     };
 
     this.loadData = this.loadData.bind(this);
@@ -17,9 +17,9 @@ class Equipamento extends Component {
     this.updateOutput = this.updateOutput.bind(this);
   }
 
-  editOutput(cat) {
+  editOutput(out) {
     this.setState({
-      editingOutput: cat.name
+      editingOutput: out.nome
     });
   }
   cancelEditing() {
@@ -31,7 +31,6 @@ class Equipamento extends Component {
   loadData(id) {
     this.setState({ id });
     this.props.readEquipamento(id);
-    //this.props.loadEquipamento(id)
   }
 
   componentDidMount() {
@@ -67,7 +66,7 @@ class Equipamento extends Component {
                   editingOutput={this.state.editingOutput}
                   editOutput={this.editOutput}
                   updateOutput={this.updateOutput}
-                  key={key.id}
+                  key={i}
                   saida={key}
                 />
               ];
@@ -78,8 +77,8 @@ class Equipamento extends Component {
           <hr />
         </div>
         <div className="row">
-          {this.props.equipamento.sensores.map(x => {
-            return <SensorResumo sensor={x} />;
+          {this.props.equipamento.sensores.map((x, i) => {
+            return <SensorResumo key={i} sensor={x} />;
           })}
         </div>
 
@@ -88,8 +87,8 @@ class Equipamento extends Component {
           <hr />
         </div>
         <div className="row">
-          {this.props.equipamento.sensores.map(x => {
-            return <SensorGraph sensor={x} />;
+          {this.props.equipamento.sensores.map((x, i) => {
+            return <SensorGraph sensor={x} key={i} />;
           })}
         </div>
       </div>
