@@ -4,35 +4,59 @@ class Saida extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      validationOutput: ""
+    };
     this.handleUpdateOutput = this.handleUpdateOutput.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   handleUpdateOutput(saida) {
-    const status = parseInt(this.refs["out-" + saida.id].value, 10);
-    this.props.updateOutput({
-      id: saida.id,
-      status: status > 100 ? 99 : status < 0 ? 0 : status
-    });
+    const status = Math.floor(parseInt(this.refs["out-" + saida.id].value, 10));
+    if (this.state.validationOutput === "") {
+      this.props.updateOutput({
+        id: saida.id,
+        status: status > 100 ? 99 : status < 0 ? 0 : status
+      });
+    }
+  }
+
+  onChange(e) {
+    const re = /^\+?(0|[1-9]\d*)$/;
+    if (
+      re.test(e.target.value) &&
+      e.target.value >= 0 &&
+      e.target.value <= 99
+    ) {
+      this.setState({ validationOutput: "" });
+    } else {
+      this.setState({
+        validationOutput:
+          "Por favor, insira somente números inteiros de 0 a 99."
+      });
+    }
   }
 
   render() {
     const { saida } = this.props;
     return (
-      <div className="col col-xs-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+      <div className="col col-xs-6 col-sm-5 col-md-4 col-lg-3 col-xl-3">
         <div className="card" style={{ marginTop: "10px" }}>
           <div className="card-body">
-            <h5 className="card-title">{saida.name}</h5>
-            {this.props.editingOutput === saida.name && (
+            <h5 className="card-title">{saida.nome}</h5>
+            {this.props.editingOutput === saida.nome && (
               <div>
                 <div className="input-group mb-3">
                   <input
                     type="number"
+                    step="1"
                     min="0"
                     max="99"
                     ref={"out-" + saida.id}
-                    defaultValue={saida.status}
+                    defaultvalor={saida.valor}
                     className="form-control"
-                    aria-label="Text input with dropdown button"
+                    aria-label="Campo para inserir novo valor da saída"
+                    onChange={e => this.onChange(e)}
                   />
                   <div className="input-group-append">
                     <button
@@ -44,6 +68,13 @@ class Saida extends Component {
                     </button>
                   </div>
                 </div>
+
+                {this.state.validationOutput !== "" && (
+                  <div className="alert alert-danger" role="alert">
+                    {this.state.validationOutput}
+                  </div>
+                )}
+
                 <button
                   style={{ width: "100%" }}
                   className="btn btn-fluid btn-outline-success"
@@ -54,9 +85,9 @@ class Saida extends Component {
                 </button>
               </div>
             )}
-            {this.props.editingOutput !== saida.name && (
+            {this.props.editingOutput !== saida.nome && (
               <div className="input-group-append">
-                <h4 className="card-text">{saida.status}</h4>
+                <h4 className="card-text">{saida.valor}</h4>
                 <button
                   className="btn btn-sm btn-outline-primary"
                   type="button"
