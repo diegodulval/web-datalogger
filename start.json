@@ -1,0 +1,8 @@
+{
+    "apps": [
+        {
+            "name": "Habeis-Web",
+            "script": "./run.sh"
+        }
+    ]
+}
