@@ -5,7 +5,7 @@ import logo from "./assets/logo.png";
 
 class Home extends Component {
   render() {
-    return [
+    return (
       <div className="jumbotron bg">
         <h1 className="display-3 text-center">
           <img src={logo} className="App-logo" alt="logo" width="200" />
@@ -20,7 +20,7 @@ class Home extends Component {
           </Link>
         </p>
       </div>
-    ];
+    );
   }
 }
 

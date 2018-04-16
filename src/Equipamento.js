@@ -11,7 +11,7 @@ class Equipamento extends Component {
     this.state = {
       id: null,
       editingOutput: "",
-      equipamento: { sensores: [{ registros: [{ x: "", y: 0 }] }], saidas: [] },
+      equipamento: { sensores: [{ registros: [{ x: "", y: 0 }] }], saidas: [] }
     };
 
     this.loadData = this.loadData.bind(this);
@@ -65,7 +65,8 @@ class Equipamento extends Component {
       <div>
         <div className="row">
           <div className="col col-xs-8 col-sm-9 col-md-9 col-lg-10 col-xl-10">
-            <h3>{equipamento.descricao}</h3>
+            <h3>{equipamento.nome}</h3>
+            <span className="border-left">{equipamento.descricao}</span>
           </div>
           <div className="col col-xs-4 col-sm-3 col-md-3 col-lg-2 col-xl-2">
             <Link

@@ -9,6 +9,9 @@ const apis = {
   editSensor: (sensor, deviceId) =>
     api.put("device/" + deviceId + "/sensors/" + sensor.id, sensor),
 
+  editDevice: (device, deviceId) =>
+    api.put("device/" + deviceId, device),
+
   loadEquipamentos: () => api.get("device"),
   readEquipamento: id => api.get("device/" + id + "/feeds")
 };

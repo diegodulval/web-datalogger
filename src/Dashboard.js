@@ -20,7 +20,7 @@ class Dashboard extends Component {
     return (
       <li key={device.id}>
         <Link to={`/dashboard/equipamento/${device.id}`}>
-          {device.description}
+          {device.name}
         </Link>
       </li>
     );
@@ -38,8 +38,7 @@ class Dashboard extends Component {
               <ul style={{ listStyle: "none", padding: 0 }}>
                 {this.props.equipamentos.length === 0 && (
                   <p className="alert alert-info">
-                    {" "}
-                    Nenhum equipamento cadastrado{" "}
+                    Nenhum equipamento cadastrados
                   </p>
                 )}
                 <ReactCSSTransitionGroup
@@ -82,6 +81,7 @@ class Dashboard extends Component {
                       equipamento={this.props.equipamento}
                       updateOutput={this.props.updateOutput}
                       editSensor={this.props.editSensor}
+                      editDevice={this.props.editDevice}
                     />
                   );
                 }}

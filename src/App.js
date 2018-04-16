@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./Home";
 import Sobre from "./Sobre";
@@ -19,6 +21,7 @@ class App extends Component {
     this.readEquipamento = this.readEquipamento.bind(this);
     this.updateOutput = this.updateOutput.bind(this);
     this.editSensor = this.editSensor.bind(this);
+    this.editDevice = this.editDevice.bind(this);
   }
 
   updateOutput(deviceId, out) {
@@ -27,6 +30,10 @@ class App extends Component {
 
   editSensor(sensor, deviceId) {
     return this.props.api.editSensor(sensor, deviceId);
+  }
+
+  editDevice(device, deviceId) {
+    return this.props.api.editDevice(device, deviceId);
   }
 
   loadEquipamentos() {
@@ -73,12 +80,23 @@ class App extends Component {
                   readEquipamento={this.readEquipamento}
                   updateOutput={this.updateOutput}
                   editSensor={this.editSensor}
+                  editDevice={this.editDevice}
                 />
               );
             }}
           />
-
           <Route exact path="/sobre" component={Sobre} />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover
+          />
         </div>
       </Router>
     );
