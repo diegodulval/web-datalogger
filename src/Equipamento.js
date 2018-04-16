@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import Saida from "./Saida";
 import SensorResumo from "./SensorResumo";
 import SensorGraph from "./SensorGraph";
@@ -8,7 +10,8 @@ class Equipamento extends Component {
     super(props);
     this.state = {
       id: null,
-      editingOutput: ""
+      editingOutput: "",
+      equipamento: { sensores: [{ registros: [{ x: "", y: 0 }] }], saidas: [] },
     };
 
     this.loadData = this.loadData.bind(this);
@@ -30,7 +33,11 @@ class Equipamento extends Component {
 
   loadData(id) {
     this.setState({ id });
-    this.props.readEquipamento(id);
+    this.props.readEquipamento(id).then(res => {
+      this.setState({
+        equipamento: res.data
+      });
+    });
   }
 
   componentDidMount() {
@@ -52,32 +59,44 @@ class Equipamento extends Component {
   }
 
   render() {
+    const { match } = this.props;
+    const { equipamento } = this.state;
     return (
       <div>
-        <h3>{this.props.equipamento.descricao}</h3>
+        <div className="row">
+          <div className="col col-xs-8 col-sm-9 col-md-9 col-lg-10 col-xl-10">
+            <h3>{equipamento.descricao}</h3>
+          </div>
+          <div className="col col-xs-4 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+            <Link
+              className="btn btn-primary pull-right"
+              to={`${match.params.catId}/editar`}
+            >
+              Editar
+            </Link>
+          </div>
+        </div>
         <hr />
         <div className="row">
-          {this.props.equipamento.saidas
-            .sort((a, b) => a.id - b.id)
-            .map((key, i) => {
-              return [
-                <Saida
-                  cancelEditing={this.cancelEditing}
-                  editingOutput={this.state.editingOutput}
-                  editOutput={this.editOutput}
-                  updateOutput={this.updateOutput}
-                  key={i}
-                  saida={key}
-                />
-              ];
-            })}
+          {equipamento.saidas.sort((a, b) => a.id - b.id).map((key, i) => {
+            return [
+              <Saida
+                cancelEditing={this.cancelEditing}
+                editingOutput={this.state.editingOutput}
+                editOutput={this.editOutput}
+                updateOutput={this.updateOutput}
+                key={i}
+                saida={key}
+              />
+            ];
+          })}
         </div>
         <div style={{ marginTop: "30px" }}>
           <h3>Sensores</h3>
           <hr />
         </div>
         <div className="row">
-          {this.props.equipamento.sensores.map((x, i) => {
+          {equipamento.sensores.map((x, i) => {
             return <SensorResumo key={i} sensor={x} />;
           })}
         </div>
@@ -87,7 +106,7 @@ class Equipamento extends Component {
           <hr />
         </div>
         <div className="row">
-          {this.props.equipamento.sensores.map((x, i) => {
+          {equipamento.sensores.map((x, i) => {
             return <SensorGraph sensor={x} key={i} />;
           })}
         </div>

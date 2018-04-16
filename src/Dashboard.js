@@ -3,6 +3,7 @@ import { Route, Link } from "react-router-dom";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import Equipamento from "./Equipamento";
+import EquipamentoEditar from "./EquipamentoEditar";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -18,7 +19,9 @@ class Dashboard extends Component {
   renderEquipamentos(device) {
     return (
       <li key={device.id}>
-        <Link to={`/dashboard/equipamento/${device.id}`}> {device.description} </Link>
+        <Link to={`/dashboard/equipamento/${device.id}`}>
+          {device.description}
+        </Link>
       </li>
     );
   }
@@ -61,6 +64,24 @@ class Dashboard extends Component {
                       equipamentos={this.props.equipamentos}
                       equipamento={this.props.equipamento}
                       updateOutput={this.props.updateOutput}
+                    />
+                  );
+                }}
+              />
+
+              <Route
+                exact
+                path={match.url + "/equipamento/:catId/editar"}
+                render={props => {
+                  return (
+                    <EquipamentoEditar
+                      {...props}
+                      loadEquipamentos={this.props.loadEquipamentos}
+                      readEquipamento={this.props.readEquipamento}
+                      equipamentos={this.props.equipamentos}
+                      equipamento={this.props.equipamento}
+                      updateOutput={this.props.updateOutput}
+                      editSensor={this.props.editSensor}
                     />
                   );
                 }}

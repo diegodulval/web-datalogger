@@ -18,10 +18,15 @@ class App extends Component {
     this.loadEquipamentos = this.loadEquipamentos.bind(this);
     this.readEquipamento = this.readEquipamento.bind(this);
     this.updateOutput = this.updateOutput.bind(this);
+    this.editSensor = this.editSensor.bind(this);
   }
 
   updateOutput(deviceId, out) {
     return this.props.api.updateOutput(deviceId, out);
+  }
+
+  editSensor(sensor, deviceId) {
+    return this.props.api.editSensor(sensor, deviceId);
   }
 
   loadEquipamentos() {
@@ -41,11 +46,7 @@ class App extends Component {
   }
 
   readEquipamento(catId) {
-    this.props.api.readEquipamento(catId).then(res => {
-      this.setState({
-        equipamento: res.data
-      });
-    });
+    return this.props.api.readEquipamento(catId);
   }
 
   render() {
@@ -71,6 +72,7 @@ class App extends Component {
                   equipamento={this.state.equipamento}
                   readEquipamento={this.readEquipamento}
                   updateOutput={this.updateOutput}
+                  editSensor={this.editSensor}
                 />
               );
             }}

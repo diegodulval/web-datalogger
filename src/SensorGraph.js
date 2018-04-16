@@ -14,7 +14,7 @@ class SensorGraph extends Component {
   render() {
     const { sensor } = this.props;
     return (
-      <div className="col col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+      <div className="col col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div className="card" style={{ marginTop: "10px" }}>
           <div className="card-body">
             <h5 className="card-title">{sensor.nome}</h5>
